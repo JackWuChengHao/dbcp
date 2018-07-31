@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -56,6 +57,27 @@ public class DbcpDataSource {
 			logger.error(e.getMessage(), e);
 		}
 		return connection;
+	}
+	
+	
+	public static void closeStmt(Statement stmt) {
+		if (stmt != null) {
+			try {
+				stmt.close();
+			} catch (Exception ignore) {
+				logger.error("Can't close statement!",ignore);
+			}
+		}
+	}
+	
+	public static void closeConnection(Connection con) {
+		try {
+			if (con != null) {
+				con.close();
+			}
+		} catch (Exception ignore) {
+			logger.error("Can't close connection!",ignore);
+		}
 	}
 	
 	
